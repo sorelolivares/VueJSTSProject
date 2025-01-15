@@ -13,6 +13,11 @@ const addFavoriteNumber = () =>{
   favoriteNumbers.value.push(count.value)
   console.log(favoriteNumbers)
 }
+
+const reset = () =>{
+  count.value = 0
+  favoriteNumbers.value = []
+}
 // const countStyle = () =>{
 //   return count.value < 0 ? 'color:red' : 'color:green'
 // }
@@ -55,8 +60,9 @@ const validateExistence = computed( () => {
       </div>
       <div class="mx-auto">
         <button class="bg-green-400 p-2 rounded-lg mx-2" @click="increment()">Aumentar</button>
-        <button class="bg-gray-400 p-2 rounded-lg mx-2" @click="decrement()">disminuir</button>
+        <button class="bg-yellow-400 p-2 rounded-lg mx-2" @click="decrement()">Disminuir</button>
         <button :class="[ !validateExistence ? 'bg-blue-400 p-2 rounded-lg mx-2'  : 'bg-blue-400 p-2 rounded-lg cursor-not-allowed mx-2 opacity-50']" :disabled="validateExistence" @click="addFavoriteNumber()">Add number</button>
+        <button class="bg-gray-400 p-2 rounded-lg mx-2" @click="reset()">Resetear</button>
       </div>
     </div>
     <div class="text-2xl">
