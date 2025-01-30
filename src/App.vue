@@ -1,75 +1,27 @@
 <script setup lang="ts">
-import {ref, computed} from 'vue'
-const count = ref(0)
-const favoriteNumbers = ref<number[]>([])
-//const favoriteNumbers: number[] = ref([])
-const increment = () => {
-  count.value++
-}
-const decrement = () => {
-  count.value--
-}
-const addFavoriteNumber = () =>{
-  favoriteNumbers.value.push(count.value)
-  console.log(favoriteNumbers)
-}
-
-const reset = () =>{
-  count.value = 0
-  favoriteNumbers.value = []
-}
-// const countStyle = () =>{
-//   return count.value < 0 ? 'color:red' : 'color:green'
-// }
-
-const classCounter = computed( () => {
-  let color = ''
-  if(count.value == 0){
-    color = 'text-gray-800'
-  }
-  if(count.value > 0){
-    color = 'text-green-700'
-  }
-  if(count.value < 0){
-    color = 'text-red-700'
-  }
-  favoriteNumbers.value.forEach(el => {
-    if (el == count.value) {
-      color = 'text-gray-300'
-    }
-  })
-  return color
-})
-
-const validateExistence = computed( () => {
-  let val = false
-  favoriteNumbers.value.forEach(element => {
-    if(element === count.value){
-      val = true
-    }
-  });
-  return val
-})
-
+import {ref} from 'vue'
+import NumberCounter from './components/NumberCounter.vue'
+import TaskManager from './components/TaskManager.vue';
+import GithubRepositoryFinder from './components/GithubRepositoryFinder.vue';
+const counterComponent = ref(false)
+const taskManagerComponent = ref(false)
+const githubRepositoryFinderComponent = ref(false)
 </script>
 <template>
-  <div class=" w-1/2 min-h-screen bg-gray-100 flex flex-row justify-around text-xl mx-auto">
-    <div class="flex flex-col">
-      <div class="mx-auto text-5xl mb-4">
-        <span :class="classCounter">{{ count }}</span>
+  <div class="p-6 bg-gray-100 min-h-screen min-w-screen">
+    <div class="w-full">
+      <div class="w-full mb-4">
+        <button @click="counterComponent = !counterComponent" class="py-1 px-3 rounded-lg bg-emerald-800 text-white ">CONTADOR</button>
+        <NumberCounter v-if="counterComponent"/>
       </div>
-      <div class="mx-auto">
-        <button class="bg-green-400 p-2 rounded-lg mx-2" @click="increment()">Aumentar</button>
-        <button class="bg-yellow-400 p-2 rounded-lg mx-2" @click="decrement()">Disminuir</button>
-        <button :class="[ !validateExistence ? 'bg-blue-400 p-2 rounded-lg mx-2'  : 'bg-blue-400 p-2 rounded-lg cursor-not-allowed mx-2 opacity-50']" :disabled="validateExistence" @click="addFavoriteNumber()">Add number</button>
-        <button class="bg-gray-400 p-2 rounded-lg mx-2" @click="reset()">Resetear</button>
+      <div class="w-full mb-4">
+        <button @click="taskManagerComponent = !taskManagerComponent" class="py-1 px-3 rounded-lg bg-emerald-800 text-white ">TASK MANAGER</button>
+        <TaskManager v-if="taskManagerComponent"/>
       </div>
-    </div>
-    <div class="text-2xl">
-      <h1>Favorite Numbers List</h1>
-      <ul class="flex justify-center" v-for="number,index in favoriteNumbers" :key="index">
-        <li>{{ number }}</li>
-      </ul>
+      <div class="w-full mb-4">
+        <button @click="githubRepositoryFinderComponent = !githubRepositoryFinderComponent" class="py-1 px-3 rounded-lg bg-emerald-800 text-white ">Github Random Repository Finder</button>
+        <GithubRepositoryFinder v-if="githubRepositoryFinderComponent"/>
+      </div>
     </div>
   </div>
 </template>
