@@ -43,7 +43,15 @@ const getRepositories = async () => {
 getLanguages()
 </script>
 <template>
-  <div class="w-full flex justify-center items-center">
+  <div class="w-full flex flex-row justify-around items-center">
+  <div class="">
+    <div class="mb-4">
+      <label for="">Token</label>
+    </div>
+    <div class="">
+      <input type="text" class="py-2 px-3 border border-gray-300 bg-gray-100 rounded-xl" v-model="token" placeholder="Token">
+    </div>
+  </div>
     <div class="w-1/5">
       <div class="w-full mb-4">
         <select name="" @change="getRepositories" v-model="programmingLanguage"  id="" class="w-full py-2 bg-gray-100 px-3 border border-gray-300 rounded-xl">
@@ -57,11 +65,11 @@ getLanguages()
           <div class="w-full h-full select-none cursor-wait flex justify-center items-center" v-if="loading > 0">
             Cargando...
           </div>
-          <div v-else class="w-full h-full flex flex-col justify-around items-start px-5 py-2 ">
-            <div class="text-base">
+          <div v-else class="w-full h-full flex flex-col justify-around items-start px-5 py-2">
+            <div class="text-base mb-2">
               {{ repositorie.full_name }}
             </div>
-            <div class="">
+            <div class="overflow-auto mb-2">
               {{ repositorie.description }}
             </div>
             <div class="">
